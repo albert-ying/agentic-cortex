@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Caches (user-generated, not seed data)
+.cache/cc-screenpipe-*.json
+.cache/cc-briefing-*.json
+.cache/journal_raw_*.json
+.cache/sync-state/*.json
+.cache/*.log
+
+# Databases
+*.db
+
+# Media (user-generated)
+assets/*.mp4
+
+# Editor
+.vscode/
+.cursor/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Lock files
+.cache/sync-state/.updater-lock
