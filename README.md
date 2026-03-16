@@ -1,12 +1,24 @@
-# Agentic Cortex
+# 🧠 Agentic Cortex
 
 > 🦞 Built for [OpenClaw](https://github.com/nicobailon/openclaw) / [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — a personal AI operating system that shares your memory, your voice, and your taste.
 
 **[Quick Start](#-quick-start)** · **[Installation](#-installation)** · **[Architecture](#architecture)** · **[Chapters](#chapters)** · **[FAQ](#faq)**
 
+<p align="center">
+  <img src="docs/01_system_architecture.png" alt="Agentic Cortex System Architecture" width="800"/>
+</p>
+
 ---
 
 ## What Makes This Different
+
+<p align="center">
+  <img src="docs/02_ai_amnesia.png" alt="The Amnesia of Modern AI" width="700"/>
+</p>
+
+<p align="center">
+  <img src="docs/03_evolution_matrix.png" alt="AI Evolution Matrix" width="700"/>
+</p>
 
 Storing notes in markdown is not new. Obsidian, Logseq, and Dendron all do it. What none of them do is close the loop: structured markdown as persistent AI memory + MCP integrations for live data + a feedback RL mechanism that reshapes AI behavior from natural language corrections + voice cloning extracted from your writing history + ambient intelligence from screen and audio recording.
 
@@ -31,6 +43,10 @@ The result is an AI agent that has the same memory as you — and even more prec
 ---
 
 ## Architecture
+
+<p align="center">
+  <img src="docs/04_digital_brain.png" alt="Anatomy of a Digital Brain" width="700"/>
+</p>
 
 ```mermaid
 graph TD
@@ -251,6 +267,10 @@ The agent reads `CLAUDE.md`, loads your skills and memory, and should brief you 
 
 ### Chapter 1: The Vault — Structured Memory
 
+<p align="center">
+  <img src="docs/05_naming_schema.png" alt="The Naming Convention IS the Schema" width="700"/>
+</p>
+
 Hierarchical markdown notes as the AI's long-term memory. The vault uses dot-separated naming conventions — every filename encodes its category and position in the knowledge graph:
 
 ```
@@ -342,6 +362,10 @@ memory/
 
 ### Chapter 4: Command Center
 
+<p align="center">
+  <img src="docs/06_memory_thermostat.png" alt="The Memory Thermostat" width="700"/>
+</p>
+
 A three-tier memory system — working memory (hot), context model (warm), vault (cold) — with automated briefing at session start.
 
 **Working Memory** (`_working-memory.md`) is refreshed every session: current focus, today's calendar, sync status, live tasks, stale follow-ups.
@@ -360,6 +384,10 @@ The command center skill (`skills/command-center/SKILL.md`) defines the briefing
 ---
 
 ### Chapter 5: Data Sources
+
+<p align="center">
+  <img src="docs/08_ambient_senses.png" alt="Ambient Senses and The Local Boundary" width="700"/>
+</p>
 
 MCP servers give the AI live access to Gmail, Google Calendar, and Screenpipe.
 
@@ -393,6 +421,10 @@ Screenpipe: install from [screenpi.pe](https://screenpi.pe/) and enable its MCP 
 
 ### Chapter 6: Voice Profile
 
+<p align="center">
+  <img src="docs/09_voice_cloning.png" alt="An AI With Your Exact Taste" width="700"/>
+</p>
+
 A voice profile extracted from your real writing history. Lives at `me/VOICE_PROFILE.md` and captures your communication fingerprint across registers: sentence length, punctuation habits, hedging patterns, greeting conventions, formal vs. informal vs. chat.
 
 **How to build it:**
@@ -418,6 +450,10 @@ The `detect-people` skill scans incoming data for names and matches against exis
 ---
 
 ### Chapter 8: The Feedback Loop
+
+<p align="center">
+  <img src="docs/10_feedback_rl.png" alt="Redefining Reinforcement Learning" width="700"/>
+</p>
 
 This is the core mechanism. When you correct the AI, it saves the correction as a persistent memory file. Next session, it reads that file and adjusts. Over time, the system converges toward your preferences.
 
@@ -483,6 +519,10 @@ Transparent, reversible, composable.
 ---
 
 ### Chapter 9: Daily Briefing
+
+<p align="center">
+  <img src="docs/07_session_lifecycle.png" alt="A Day in the Life of the OS" width="700"/>
+</p>
 
 Every session starts with a proactive briefing — calendar, task status, stale follow-ups, project momentum — delivered without being asked.
 
