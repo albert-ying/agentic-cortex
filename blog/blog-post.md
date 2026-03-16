@@ -44,37 +44,37 @@ The deeper point is that naming conventions are an underrated form of architectu
 
 ---
 
-## The Feedback Loop: RLHF Without Training
+## The Feedback Loop: Behavioral Alignment Through Structured Feedback
 
-This is the most interesting part of the system. It emerged almost by accident.
+This is the most interesting part of the system.
 
-In standard RLHF, you improve a model's behavior through labeled preference data, reward modeling, and policy optimization. It requires GPU clusters, curated datasets, and training infrastructure. The conceptual goal is simple: human feedback should produce lasting behavioral change. However, the engineering is heavy.
+I want to be precise about what this is and what it is not. It is not reinforcement learning. There is no reward function, no policy optimization, no gradient update. The LLM weights never change. However, the mechanism is *structurally analogous* to RL in an important way: human corrections produce lasting behavioral change that compounds over time. The difference is that the change propagates through context, not through parameters.
 
-The feedback loop in this system achieves the same goal through a different mechanism. When I correct the agent ("don't double-space after paragraphs in emails"), the correction gets persisted as a structured memory entry with three things:
+Here is how it works. When I correct the agent ("don't double-space after paragraphs in emails"), the correction gets persisted as a structured memory entry with three things:
 
 1. **The rule**: single line breaks in all email drafts.
 2. **The rationale**: double spacing signals AI-generated text to recipients who know my style.
 3. **The scope**: all email drafts, all communication registers.
 
-Next session, the agent reads this file alongside all other accumulated feedback. The behavior changes permanently. No training run. No weight update. The correction propagates through context, not through gradients.
+Next session, the agent reads this file alongside all other accumulated feedback at context-load time. The behavior changes permanently. No training run. No weight update. The prompt evolves; the model stays the same.
 
-The analogy maps cleanly:
+The structural analogy to RL is useful for intuition, but should not be overstated:
 
-| RLHF | Feedback Loop |
-|------|--------------|
-| Base model weights | `CLAUDE.md` (base policy) |
-| Human preference labels | Natural language corrections |
-| Reward model | Rationale field in feedback entries |
-| Policy gradient update | Feedback file written to disk |
-| Updated model | Agent reading updated context next session |
+| Concept | Traditional RLHF | Agentic Cortex |
+|---------|-----------------|----------------|
+| Signal source | Labeled preference datasets | Natural language corrections |
+| Update mechanism | Gradient descent on parameters | Persistent memory file creation |
+| Compute cost | GPU clusters | Zero (plaintext parsing) |
+| Result | Shifted network weights | Updated behavioral context |
+| Auditability | Opaque black-box | 100% transparent and reversible |
 
-The key difference is generalization. Standard RLHF requires many examples to shift a model's distribution. Here, a single correction with a well-articulated rationale generalizes immediately, because the agent can reason about the principle.
+The key insight is not that this is RL. It is that **structured feedback with rationale enables single-example generalization**. In traditional RLHF, you need many labeled examples to shift a model's distribution. Here, a single correction with a well-articulated rationale generalizes immediately, because the agent can reason about the underlying principle.
 
-One correction about git repositories and large binary files ("never `git init` at `~/` -- a prior `.git` there ballooned to 52GB from tracking binary-heavy subdirectories") later caused the agent to independently warn about initializing a repo in a directory full of `.h5` files. No rule mentioned `.h5` files. The agent had extracted the principle (large binary files and git do not mix) and applied it to a novel situation.
+One correction about git repositories and large binary files ("never `git init` at `~/` -- a prior `.git` there ballooned to 52GB from tracking binary-heavy subdirectories") later caused the agent to independently warn about initializing a repo in a directory full of `.h5` files. No rule mentioned `.h5` files. The agent extracted the principle (large binary files and git do not mix) and applied it to a novel situation. This is not learning in the ML sense. It is reasoning over structured context. But the practical effect is the same: the behavior improves from feedback and stays improved.
 
-After roughly 15 sessions and 18 accumulated feedback entries, the agent's email drafts became indistinguishable from my own. It learned formatting preferences, communication register calibration per relationship tier, domain-specific vocabulary choices, and stylistic constraints I had not explicitly articulated. It inferred them from the pattern of corrections.
+After roughly 15 sessions and 18 accumulated feedback entries, the agent's email drafts became indistinguishable from my own. The corrections compound. Each one narrows the behavioral space, and because the agent reads all of them at session start, the combined effect is multiplicative.
 
-This is what makes plaintext feedback more powerful than it sounds. The corrections compound. Each one narrows the agent's behavioral space, and because the agent reads all of them at session start, the combined effect is multiplicative, not additive.
+The final takeaway: **the LLM weights never change -- the prompt does.**
 
 ---
 
