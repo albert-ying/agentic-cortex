@@ -87,6 +87,12 @@ graph TD
 
 ### The Naming Convention Is the Schema
 
+<p align="center">
+  <img src="docs/dendron_note_graph.png" alt="Dendron note graph — hierarchical naming creates a natural knowledge graph" width="600"/>
+  <br/>
+  <em>A real vault's note graph. Each cluster is a namespace (user.*, proj.*, daily.*, sci.*). Cross-links between notes create the edges. The naming convention creates this structure — no graph database required.</em>
+</p>
+
 The foundation of the entire system is a single design decision: **dot-separated filenames that encode type, time, and relationships**.
 
 ```
