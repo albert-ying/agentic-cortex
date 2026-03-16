@@ -1,0 +1,49 @@
+graph TD
+    subgraph Senses["Senses (MCP Servers)"]
+        SP[Screenpipe<br/>screen + audio]
+        GM[Gmail<br/>email]
+        GC[Google Calendar<br/>schedule]
+        CH[Chat History<br/>future extension]
+    end
+
+    subgraph Sync["Sync Engine"]
+        SA[Source Adapters]
+        MF[Manifests]
+        VU[Vault Updater]
+    end
+
+    subgraph Vault["Dendron Vault (Plaintext Markdown)"]
+        PPL[People<br/>user.*.md]
+        PRJ[Projects<br/>proj.*.md]
+        SCI[Science<br/>sci.*.md]
+        DJ[Daily Journals<br/>daily.*.md]
+        MT[Meetings<br/>meet.*.md]
+    end
+
+    subgraph Brain["Command Center"]
+        WM[Working Memory<br/>hot - today's state]
+        CM[Context Model<br/>warm - follow-ups, momentum]
+        VP[Voice Profile<br/>how you write + talk]
+    end
+
+    subgraph DNA["Behavior Layer"]
+        CMD[CLAUDE.md<br/>rules + identity]
+        SK[Skills<br/>reusable capabilities]
+        AM[Auto-Memory<br/>learned preferences]
+        FB[Feedback Loop<br/>corrections → permanent change]
+    end
+
+    subgraph Output["Actions (Human-Gated)"]
+        ED[Email Drafts]
+        BR[Briefings]
+        NW[Note Writes]
+        MP[Meeting Prep]
+    end
+
+    SP & GM & GC & CH --> SA
+    SA --> MF --> VU
+    VU --> Vault
+    Vault --> Brain
+    Brain --> DNA
+    DNA --> Output
+    FB -.->|"you correct → AI remembers"| AM
