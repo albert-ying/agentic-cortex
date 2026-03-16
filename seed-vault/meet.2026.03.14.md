@@ -1,62 +1,64 @@
 ---
 id: mt2h7adv5k9n3sw1x6jvwx
-title: '1:1 with Sarah Kim'
-desc: 'Advisor meeting — career planning, grant applications, protein design next steps'
+title: '1:1 with Priya Sharma'
+desc: 'Weekly 1:1 — API redesign progress, team health, career growth'
 date: '2026-03-14'
 attendees:
-  - '[[user.jamie-park]]'
-  - '[[user.sarah-kim]]'
+  - '[[user.alex-rivera]]'
+  - '[[user.priya-sharma]]'
 updated: 1710400000000
 created: 1710380000000
 ---
 
-# 1:1 with Sarah Kim — 2026-03-14
+# 1:1 with Priya Sharma — 2026-03-14
 
 ## Agenda
 
-1. Career planning: faculty applications timeline
-2. K99/R00 grant application strategy
-3. Protein binder design — experimental plan and timeline
-4. Foundation model — compute and publication plan
+1. API redesign: progress toward end-of-March milestone
+2. Production incident follow-up
+3. Team health and Mei Lin's ramp-up
+4. Career: Staff engineer path discussion
 
 ## Discussion
 
-### Career Planning
+### API Redesign Progress
 
-Sarah thinks I should target the Fall 2027 faculty application cycle. That gives ~18 months to build out the publication record. Current plan:
-- Protein binder paper (aim for submission by August 2026)
-- Foundation model paper (aim for submission by December 2026)
-- These plus the clock paper give a strong three-paper narrative around computational aging biology
+Priya is happy with the momentum. Core endpoints are implemented, versioning strategy is locked, and the API explorer design looks strong. The end-of-March milestone ("spec complete + 3 core endpoints working") is on track.
 
-She recommended reaching out to three departments that have posted computational biology searches: Clearwater University, Bridgeport Institute, and Northshore Medical School. Even informal conversations now can help later.
+She asked about the beta partner program timeline. I confirmed Nina is targeting last week of April for onboarding the first 5 partners. Priya wants at least one "lighthouse customer" — a well-known company using the v2 API that we can reference publicly.
 
-### K99/R00 Strategy
+### Production Incident
 
-Deadline for the next NIA cycle is October 2026. Sarah suggested framing the application around the foundation model as the primary aim, with protein design as a translational aim. She will review a specific aims page draft by end of March.
+Priya appreciated the fast post-mortem from Jason. She asked two questions: (1) why didn't our monitoring catch it sooner? (2) what's the systemic fix beyond PgBouncer? I explained that the alerting gap is now closed (Datadog page at p99 > 500ms) and that the systemic fix is the connection pooling architecture change that's part of the API redesign infrastructure work.
 
-Key point: need preliminary data from the foundation model pre-training to include in the application. This makes the HPC allocation timeline critical.
+She flagged this as a talking point for the board update — "proactive reliability investment" framing.
 
-### Protein Design Next Steps
+### Team Health
 
-David's yeast display selections started on schedule. Sarah suggested adding a negative control panel (binders designed against non-aggregated monomers) to strengthen the specificity argument for the paper.
+Mei Lin is ramping well — shipped her first endpoint this week and Marcus is a good mentor for her. Priya suggested giving Mei more ownership on a bounded feature area (webhooks) to accelerate her growth.
 
-Timeline: SPR data by May, cryo-EM by July, manuscript draft by August.
+Carlos is doing great on mobile but starting to feel isolated as the only mobile engineer. Priya is considering whether to hire a second mobile developer in Q3 if the app gets traction.
 
-### Foundation Model Publication Plan
+Elena and Sam continue to be a strong design-engineering pair.
 
-Agreed to target a high-impact venue (Nature Methods or similar). The narrative should emphasize cross-tissue, cross-omic, and cross-species transfer — each as a separate validation experiment.
+### Staff Engineer Path
 
-Emma's architecture comparison (modality embeddings vs. concatenation) will be an important ablation for reviewers.
+Priya brought this up proactively. If the API redesign ships well and I demonstrate cross-team influence (specifically: getting the Growth squad to adopt the v2 API), she'd support a Staff promotion in the fall cycle.
+
+Key areas to demonstrate: (1) technical leadership beyond my squad, (2) written communication (RFCs, architecture docs), (3) mentoring impact (Mei's growth is a good signal).
+
+She suggested I write up the API versioning decision as a company-wide RFC to increase visibility.
 
 ## Action Items
 
-- [ ] [[user.jamie-park]]: Draft K99 specific aims page (by 2026-03-28)
-- [ ] [[user.jamie-park]]: Email contacts at Clearwater, Bridgeport, and Northshore for informational chats
-- [ ] [[user.jamie-park]]: Design negative control binder panel for specificity experiment
-- [ ] [[user.sarah-kim]]: Review specific aims draft once ready
-- [ ] [[user.sarah-kim]]: Introduce Jamie to her collaborator at Bridgeport (aging metabolism group)
+- [ ] [[user.alex-rivera]]: Write API versioning RFC and circulate to engineering org (by 2026-03-21)
+- [ ] [[user.alex-rivera]]: Identify lighthouse customer candidate for beta program (discuss with Nina)
+- [ ] [[user.alex-rivera]]: Give Mei ownership of webhook feature area
+- [ ] [[user.priya-sharma]]: Evaluate mobile team headcount for Q3 planning
+- [ ] [[user.priya-sharma]]: Include API redesign in board reliability narrative
 
 ## Notes
 
-- Next 1:1 scheduled for 2026-03-28
-- Sarah mentioned a new postdoc starting in April who will work on related proteomics — potential synergy with the foundation model data
+- Next 1:1 scheduled for 2026-03-21
+- Priya mentioned the engineering all-hands demo on March 28 — I should present the API redesign progress
+- The Staff path conversation is encouraging. Need to be more intentional about cross-team visibility.

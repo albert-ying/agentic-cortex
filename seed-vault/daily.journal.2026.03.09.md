@@ -8,40 +8,38 @@ created: 1710000000000
 
 ## State & Open Questions
 
-- Light day — catching up on admin and personal stuff
-- Should I apply for the Chronos Bio advisor role that [[Alex Novak|user.alex-novak]] mentioned?
-- Need to finalize slides for tomorrow's lab meeting
+- Light Sunday — personal day with some sprint planning prep
+- Need to finalize the sprint 15 scope before tomorrow's meeting
+- Should I bring up the Staff engineer path with Priya this week?
 
 ## Timeline
 
 | Time | Activity | Duration | Key Detail |
 |------|----------|----------|------------|
-| 10:00 | Chrome — email & admin | 1h | Cleared inbox, replied to conference organizers |
-| 11:00 | Slack — messages | 30m | Caught up on weekend lab chatter |
-| 11:30 | Walk outside | 1h | Called Mom, walked through campus arboretum |
-| 13:00 | VS Code — slides prep | 2h | Built figures for Monday lab meeting presentation |
-| 15:00 | Chrome — grant browsing | 1h | Looked at K99 RFA timeline and requirements |
-| 16:00 | Terminal — data pull | 30m | Downloaded HPC results from yesterday's batch run |
-| 16:30 | Papers — reading | 1h | Skimmed clock validation paper from [[Kevin Wu|user.kevin-wu]]'s group |
+| 10:00 | Chrome — email & Linear | 1h | Cleared inbox, reviewed Linear backlog for sprint planning |
+| 11:00 | Phone — Mom | 40m | Sunday call; she's coming to visit in April |
+| 11:40 | Walk — Town Lake trail | 1.5h | Ran the lake loop, listened to a podcast on engineering management |
+| 13:30 | VS Code — sprint-planning-notes | 1h | Outlined proposed sprint 15 scope for tomorrow |
+| 14:30 | Chrome — reading | 1h | Read a Staff engineer guide blog post (Will Larson) |
+| 15:30 | Slack — Carlos | 15m | He pinged about the mobile task filtering dependency |
 
 ## People
 
-- [[Mom|user.mom-park]] — called for 40 min, she asked about my grant timeline again; told her K99 submission likely in October
-- [[Alex Novak|user.alex-novak]] — texted about Chronos Bio scientific advisory board; I said I'd think about it
+- [[Mom|user.mom-rivera]] — Sunday call; she asked about work, I explained the API project in non-technical terms ("we're rebuilding the way other software connects to ours"). She wants to visit April 12-14.
+- [[Carlos Reyes|user.carlos-reyes]] — pinged about needing the task filtering API for mobile; I told him Marcus is prioritizing it in Sprint 15
 
 ## Tasks
 
-- [x] Clear email inbox
-- [x] Download batch docking results from HPC
-- [x] Start lab meeting slides
-- [ ] Finalize lab meeting slides (finish comparison plot)
-- [ ] Respond to Alex about Chronos advisory role
+- [x] Clear email and Linear backlog
+- [x] Outline Sprint 15 scope
+- [ ] Talk to Marcus about task filtering priority (tomorrow)
+- [ ] Schedule Diana dinner for this week
 
 ## Day Summary
 
-Quiet Sunday. Handled email backlog and started assembling slides for tomorrow's lab meeting. Called Mom — she's doing well but worries about my postdoc timeline as usual. Also got a text from Alex Novak about joining the Chronos Bio SAB, which is flattering but I need to think about time commitments.
+Relaxing Sunday with some light planning. Got the sprint scope outlined — the key bet is prioritizing the task filtering API for Carlos while keeping API explorer momentum going. Called Mom — she's planning an April visit which will be nice. Read some Will Larson stuff about Staff engineering and it resonated — the shift from "best IC" to "technical leader" is the gap I need to close.
 
 ## Notes
 
-- K99 deadline is looking like October cycle. Sarah said year two is the sweet spot — that's now. Need to start outlining specific aims soon.
-- The HPC batch results look clean. 83 candidates scored, energy distributions look bimodal which is promising for separating true binders from noise.
+- Carlos's mobile dependency is real. If we don't get the task filtering API done in Sprint 15, the mobile app internal beta slides to May. Making this a priority.
+- Will Larson's Staff engineer framing: "create leverage, not just output." Need to think about where I can multiply the team's effectiveness, not just ship my own code faster.

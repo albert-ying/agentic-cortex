@@ -8,31 +8,33 @@ created: 1700000000000
 
 # People
 
-## Advisor
-- [[Prof. Sarah Kim|user.sarah-kim]] — PI, aging biology lab at Westfield University
+## Manager
+- [[Priya Sharma|user.priya-sharma]] — VP Engineering at Nimbus
 
-## Lab
-- [[David Lee|user.david-lee]] — postdoc, protein design & structural biology
-- [[Emma Zhang|user.emma-zhang]] — PhD student, ML for biological aging
-- [[Ryan Patel|user.ryan-patel]] — research scientist, epigenetic clocks & multi-omics
+## Team (Platform Squad)
+- [[Marcus Johnson|user.marcus-johnson]] — senior engineer, backend
+- [[Elena Kowalski|user.elena-kowalski]] — engineer, frontend
+- [[Jason Wright|user.jason-wright]] — engineer, infrastructure
+- [[Mei Lin|user.mei-lin]] — junior engineer
+- [[Carlos Reyes|user.carlos-reyes]] — engineer, mobile
+
+## Cross-Team
+- [[Nina Okonkwo|user.nina-okonkwo]] — product manager, Platform
+- [[Sam Patel|user.sam-patel]] — product designer, Platform
 
 ## Friends
-- [[Lisa Wang|user.lisa-wang]] — close friend, biotech industry (Helix Therapeutics)
-- [[Tom Nguyen|user.tom-nguyen]] — close friend, software engineer at a genomics startup
+- [[Diana Foster|user.diana-foster]] — close friend, engineer at Dataflow (Austin)
 
 ## Family
-- [[Mom|user.mom-park]] — mother, retired teacher in Portland
-- [[Dad|user.dad-park]] — father, pharmacist in Portland
+- [[Mom|user.mom-rivera]] — mother, Elena Rivera, San Antonio
 
-## Network (Conferences & Collaborations)
-- [[Michael Chen|user.michael-chen]] — computational biology prof, Pacific Institute of Technology
-- [[Anna Mueller|user.anna-mueller]] — postdoc, Max Reinhardt Institute (Heidelberg)
-- [[James Taylor|user.james-taylor]] — senior editor, *Computational Biology Reviews*
-- [[Sophia Garcia|user.sophia-garcia]] — program officer, National Biomedical Research Foundation
+## Industry / Conference Network
+- [[Ben Tran|user.ben-tran]] — staff engineer at Vercel, met at GopherCon 2025
+- [[Olivia Chen|user.olivia-chen]] — open source maintainer (openapi-toolkit)
 
-## External Collaborators
-- [[Kevin Wu|user.kevin-wu]] — bioinformatics lead, Northern Research Hospital
-- [[Rachel Brown|user.rachel-brown]] — epidemiologist, Lakeview School of Public Health
+## External
+- [[Raj Gupta|user.raj-gupta]] — freelance DevOps/infra consultant
+- [[Laura Kim|user.laura-kim]] — recruiter, reached out about Stripe role
 
-## Startup
-- [[Alex Novak|user.alex-novak]] — founder & CEO, Chronos Bio (longevity biotech)
+## Previous Company
+- [[Derek Huang|user.derek-huang]] — co-founder of Stackpilot (previous startup)

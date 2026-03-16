@@ -1,58 +1,66 @@
 ---
 id: mt1g3lab4k8n2rw6x5jstu
-title: Lab Group Meeting
-desc: 'Weekly lab meeting — protein design update, foundation model progress, clock follow-up'
+title: Sprint Planning — Platform Squad
+desc: 'Bi-weekly sprint planning — API redesign focus, mobile app sync, production issue retro'
 date: '2026-03-10'
 attendees:
-  - '[[user.jamie-park]]'
-  - '[[user.sarah-kim]]'
-  - '[[user.david-lee]]'
-  - '[[user.emma-zhang]]'
-  - '[[user.ryan-patel]]'
+  - '[[user.alex-rivera]]'
+  - '[[user.marcus-johnson]]'
+  - '[[user.elena-kowalski]]'
+  - '[[user.jason-wright]]'
+  - '[[user.mei-lin]]'
+  - '[[user.carlos-reyes]]'
+  - '[[user.nina-okonkwo]]'
+  - '[[user.sam-patel]]'
 updated: 1710100000000
 created: 1710070000000
 ---
 
-# Lab Group Meeting — 2026-03-10
+# Sprint Planning — Platform Squad — 2026-03-10
 
 ## Agenda
 
-1. Protein binder design screening results ([[user.david-lee]])
-2. Foundation model architecture and data status ([[user.emma-zhang]], [[user.ryan-patel]])
-3. Clock paper follow-up — reviewer response and citation tracking
-4. General announcements
+1. Previous sprint retro (Sprint 14)
+2. API redesign progress and next sprint scope
+3. Mobile app status check
+4. Production latency issue — post-mortem
+5. General updates
 
 ## Discussion
 
-### Protein Binder Design
+### Sprint 14 Retro
 
-[[user.david-lee]] presented the computational screening results: 47 candidates passed binding energy and shape complementarity thresholds from the initial 12,000-design library. Top hits cluster around two epitope regions on the tau fibril surface.
+Velocity was good — 34 out of 38 story points completed. The 4-point miss was the webhook endpoint spec, which got blocked by an open question about retry semantics. Nina will resolve with customer input this week.
 
-[[user.sarah-kim]] suggested prioritizing tau binders given new cryo-EM structural data from the Thornton lab (Westfield structural biology). The alpha-synuclein candidates can be revisited later.
+### API Redesign
 
-David will begin yeast surface display selections next week. Expects preliminary binding data by end of March.
+[[user.marcus-johnson]] walked through the backend progress: projects, tasks, and comments endpoints are implemented and passing integration tests. Next priority is the task filtering API (which [[user.carlos-reyes]] needs for the mobile app) and webhook delivery.
 
-### Foundation Model
+[[user.elena-kowalski]] showed early wireframe implementation of the API explorer. [[user.sam-patel]] presented the design for the interactive "try it" panel. Team feedback: looks great, but needs syntax highlighting for request/response bodies.
 
-[[user.emma-zhang]] walked through the cross-modal transformer architecture: separate projection heads per modality feeding into shared transformer layers with modality embeddings.
+[[user.mei-lin]] shipped her first endpoint (project templates). Code review went well — Marcus noted clean error handling.
 
-[[user.ryan-patel]] flagged potential batch effects between GEO and TCGA data. The preprocessing pipelines use different normalization strategies. Agreed to add a batch correction step (ComBat or equivalent) before training begins.
+Decision: Sprint 15 scope = task filtering API + webhook spec + API explorer frontend scaffold.
 
-HPC allocation request submitted March 5 — estimated 4-week wait.
+### Mobile App
 
-### Clock Paper Follow-Up
+[[user.carlos-reyes]] demoed the current build: task list, detail view, and basic navigation are working. Push notification integration is next. Blocked on the task filtering API from Marcus — targeting end of Sprint 15.
 
-The Genome Biology paper has 12 citations since October. Two groups have applied our clock to intervention studies. Sarah suggested reaching out to both for potential collaboration.
+### Production Latency Issue
+
+Thursday's latency spike (p99 went from 200ms to 2.5s for 45 minutes). [[user.jason-wright]] ran the post-mortem: root cause was PostgreSQL connection pool exhaustion during a traffic spike from a large customer's integration sync. Fix: added PgBouncer in transaction mode and increased pool limits. Also added better alerting — Datadog will now page at p99 > 500ms.
 
 ## Action Items
 
-- [ ] [[user.david-lee]]: Start yeast display selections for tau binder candidates (by 2026-03-17)
-- [ ] [[user.ryan-patel]]: Add batch correction to preprocessing pipeline (by 2026-03-14)
-- [ ] [[user.jamie-park]]: Email the two citing groups about potential collaboration
-- [ ] [[user.emma-zhang]]: Benchmark modality embedding approach against simple concatenation baseline
-- [ ] [[user.sarah-kim]]: Share Thornton lab cryo-EM preprint with the group
+- [ ] [[user.marcus-johnson]]: Implement task filtering API endpoint (by 2026-03-17)
+- [ ] [[user.elena-kowalski]]: Scaffold API explorer frontend with syntax highlighting (by 2026-03-20)
+- [ ] [[user.mei-lin]]: Start webhook endpoint implementation (by 2026-03-20)
+- [ ] [[user.jason-wright]]: Finalize PgBouncer rollout to all environments (by 2026-03-14)
+- [ ] [[user.nina-okonkwo]]: Resolve webhook retry semantics with customer feedback (by 2026-03-14)
+- [ ] [[user.carlos-reyes]]: Continue push notification integration; consume task filtering API once available
 
 ## Notes
 
-- Next lab meeting: 2026-03-17
-- Sarah reminded everyone that grant progress reports are due April 1
+- Next sprint planning: 2026-03-24
+- Priya wants a demo of the API explorer at the engineering all-hands on March 28
+- Nina is scheduling beta partner onboarding for the last week of April

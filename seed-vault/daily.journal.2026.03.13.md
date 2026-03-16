@@ -8,46 +8,52 @@ created: 1710000000000
 
 ## State & Open Questions
 
-- Focus: K99 Aim 2 draft and follow-ups
-- David's yeast display is running — nothing for me to do on experimental side until next week
-- Need to finally email Kevin about the clock validation data
+- Focus: openapi-toolkit evaluation call and wrapping up spec work
+- Mei started on the webhook spec — should review her first draft
+- Need to think about the engineering all-hands demo on March 28
 
 ## Timeline
 
 | Time | Activity | Duration | Key Detail |
 |------|----------|----------|------------|
-| 9:00 | Chrome — email | 45m | Replied to Sophia about NBRF; emailed Kevin about clock data |
-| 9:45 | VS Code — k99-draft | 2.5h | Drafted Specific Aim 2 (multi-omic aging clock) |
-| 12:15 | Slack — Tom | 30m | [[Tom Nguyen\|user.tom-nguyen]] asked for career advice; scheduled call for Saturday |
-| 12:45 | Lunch break | 45m | Walked to the farmer's market near campus |
-| 13:30 | Zoom — Michael Chen | 45m | Caught up with PhD advisor; he offered to write K99 support letter |
-| 14:15 | VS Code — k99-draft | 1.5h | Revised Aims 1 & 2 based on Michael's feedback |
-| 15:45 | Papers — reading | 1h | Read two papers on multi-tissue clock models |
-| 16:45 | Chrome — Chronos Bio | 30m | Looked at Chronos Bio's pipeline page before replying to Alex |
-| 17:15 | Slack — Alex Novak | 15m | Told Alex I'm interested in the SAB role; asked for details on time commitment |
+| 9:00 | Chrome — email | 30m | Replied to Derek; email from [[Ben Tran\|user.ben-tran]] about a Go meetup talk |
+| 9:30 | Zoom — Olivia Chen call | 45m | openapi-toolkit deep-dive; she walked through our spec integration |
+| 10:15 | VS Code — openapi-spec | 1.5h | Integrated openapi-toolkit into CI pipeline for spec validation |
+| 11:45 | Slack — Sam | 15m | He shared final API explorer mockups; looks excellent |
+| 12:00 | Lunch break | 45m | Walked to Ramen Tatsu-ya with Jason |
+| 12:45 | VS Code — code review | 1h | Reviewed Mei's webhook spec draft — gave feedback on retry semantics |
+| 13:45 | Zoom — 1:1 with Elena | 30m | Discussed her DX career goals; suggested she write the API migration guide |
+| 14:15 | VS Code — api-redesign | 2h | Paired with Marcus on rate limiting middleware implementation |
+| 16:15 | GitHub — PRs | 45m | Reviewed and merged 2 PRs (Jason's PgBouncer config, Elena's component library) |
+| 17:00 | Chrome — all-hands prep | 30m | Started outlining the demo for March 28 engineering all-hands |
 
 ## People
 
-- [[Kevin Wu|user.kevin-wu]] — finally emailed about the Northern Research Hospital clock validation cohort; asked for metadata and n sizes
-- [[Sophia Garcia|user.sophia-garcia]] — confirmed NBRF award details; letter of intent due April 1, full app May 1
-- [[Michael Chen|user.michael-chen]] — great Zoom catch-up; he's supportive of the K99 direction and will write a strong letter. Suggested framing the innovation more around the "design-predict-validate" loop.
-- [[Tom Nguyen|user.tom-nguyen]] — wants advice about moving from industry back to academia; scheduled Saturday call
-- [[Alex Novak|user.alex-novak]] — told him I'm provisionally interested in Chronos Bio SAB; waiting for details
+- [[Olivia Chen|user.olivia-chen]] — great call. openapi-toolkit integrates cleanly with our Go codebase. She offered to help us set up the CI validation pipeline. Decision: adopt it.
+- [[Sam Patel|user.sam-patel]] — API explorer mockups are polished. The "try it" panel with live request/response preview is exactly what developers want.
+- [[Mei Lin|user.mei-lin]] — her webhook spec draft is good but retry semantics need work. Suggested she read the Stripe webhook docs for a production-grade approach. She's on it.
+- [[Elena Kowalski|user.elena-kowalski]] — 1:1 about her career direction. She wants to specialize in developer experience. Suggested she own the API migration guide as a way to build that portfolio. She's excited about it.
+- [[Marcus Johnson|user.marcus-johnson]] — paired on rate limiting. We're going with sliding window using Redis. He's fast — we got the core middleware done in one session.
+- [[Jason Wright|user.jason-wright]] — merged his PgBouncer config PR. Clean work.
+- [[Ben Tran|user.ben-tran]] — invited me to give a remote talk at a Go meetup about API versioning patterns. Might do it.
 
 ## Tasks
 
-- [x] Email Kevin about clock validation data
-- [x] Reply to Sophia about NBRF award
-- [x] Draft K99 Specific Aim 2
-- [x] Zoom with Michael Chen
-- [ ] Revise K99 aims based on Michael's feedback (started, need more)
-- [ ] Start NBRF letter of intent (due April 1)
+- [x] openapi-toolkit evaluation call with Olivia (decision: adopt)
+- [x] Integrate openapi-toolkit into CI
+- [x] Review Mei's webhook spec draft
+- [x] 1:1 with Elena about DX career goals
+- [x] Pair with Marcus on rate limiting middleware
+- [x] Merge Jason's and Elena's PRs
+- [ ] Finish all-hands demo outline
+- [ ] Reply to Ben about Go meetup talk
 
 ## Day Summary
 
-Productive writing day — got Aim 2 drafted and had a useful call with Michael Chen. His suggestion to frame around a "design-predict-validate" innovation cycle is exactly right. Also cleared two overdue follow-ups (Kevin and Sophia). Decided to go ahead with the Chronos Bio advisory role — it's good to have industry exposure and the time commitment sounds manageable.
+Packed day but high-output. The openapi-toolkit adoption is going to save us weeks of spec validation work. Marcus and I knocked out the rate limiting middleware in one pairing session — sliding window with Redis. Mei is growing into the webhook feature area. Elena is finding her niche in developer experience. Team is firing on all cylinders.
 
 ## Notes
 
-- Michael's "design-predict-validate" framing: (1) design binders computationally, (2) predict aging outcomes with multi-omic clocks, (3) validate binder efficacy by measuring clock reversal. This unifies both aims into a single coherent narrative. Brilliant.
-- Need to be careful with the NBRF timeline. Letter of intent April 1 means I need the K99 aims pretty polished by then since I'll adapt from those.
+- openapi-toolkit decision is a clear win. Olivia is also interested in writing a case study about Nimbus's API redesign, which gives us free marketing and a conference talk angle.
+- Rate limiting approach: sliding window with Redis, 1000 req/min default, configurable per customer tier. Simple, battle-tested, easy to explain.
+- Ben's Go meetup talk could be good visibility. Would need to prepare a 30-min talk on API versioning. Filing it under "nice-to-do" for after the sprint crunch.

@@ -8,47 +8,49 @@ created: 1710000000000
 
 ## State & Open Questions
 
-- Lab meeting day — presenting updated docking results and revised candidate list
-- Open question from Sarah: should we pivot to prioritize tau binders based on new structural data from the Thornton lab?
-- Need to sync with Emma about her ML model training progress
+- Sprint planning day — need to align the team on Sprint 15 priorities
+- Production latency incident from last Thursday needs a proper post-mortem
+- Open question: can we fit both the task filtering API and the webhook endpoint spec into one sprint?
 
 ## Timeline
 
 | Time | Activity | Duration | Key Detail |
 |------|----------|----------|------------|
-| 8:30 | VS Code — slides finalization | 1h | Added comparison plot of -1.5 vs -2.0 REU thresholds |
-| 9:30 | Chrome — email | 30m | Reply to [[James Taylor\|user.james-taylor]] about review article timeline |
-| 10:00 | Zoom — lab meeting | 1.5h | Presented binder screening update; discussed tau prioritization |
-| 11:30 | Slack — followup | 30m | Shared presentation slides in lab channel |
-| 12:00 | Lunch with [[Emma Zhang\|user.emma-zhang]] | 1h | Talked about her clock model architecture |
-| 13:00 | VS Code — protein-design | 2h | Started filtering candidates for tau-specific binders |
-| 15:00 | Terminal — scripts | 1h | Wrote filtering script for shape complementarity to tau fibril |
-| 16:00 | Chrome — Thornton lab preprint | 45m | Read their new cryo-EM tau fibril structures |
-| 16:45 | Slack — David | 15m | Confirmed yeast display timeline |
+| 8:30 | VS Code — sprint prep | 30m | Final review of Sprint 15 scope proposal |
+| 9:00 | Chrome — email | 30m | Reply to [[Olivia Chen\|user.olivia-chen]] about openapi-toolkit evaluation |
+| 9:30 | Zoom — sprint planning | 1.5h | Full squad planning for Sprint 15; see [[meet.2026.03.10]] |
+| 11:00 | Slack — followup | 30m | Posted sprint notes and assigned Linear tickets |
+| 11:30 | VS Code — api-versioning | 1h | Finalized versioning proposal doc based on team feedback |
+| 12:30 | Lunch with [[Marcus Johnson\|user.marcus-johnson]] | 1h | Discussed his task filtering API approach — cursor pagination |
+| 13:30 | VS Code — code review | 1.5h | Reviewed [[Mei Lin\|user.mei-lin]]'s project templates endpoint PR |
+| 15:00 | Zoom — Jason post-mortem | 45m | Production latency post-mortem; PgBouncer fix confirmed |
+| 15:45 | Terminal — testing | 1h | Tested PgBouncer config in staging with load generator |
+| 16:45 | Slack — Carlos | 15m | Confirmed task filtering API is Sprint 15 priority |
 
 <!-- moment: screenshot would be embedded here -->
 
 ## People
 
-- [[Sarah Kim|user.sarah-kim]] — lab meeting; she's enthusiastic about tau pivot, wants us to prioritize those 12 tau-specific candidates. Also reminded me to start K99 specific aims.
-- [[David Lee|user.david-lee]] — confirmed plates arrived; starting yeast display transformations Wednesday
-- [[Emma Zhang|user.emma-zhang]] — her attention-based clock model is training but loss plateaued; suggested she try a different learning rate schedule
-- [[James Taylor|user.james-taylor]] — replied to his email about the review article; confirmed I can deliver my section by April 15
+- [[Marcus Johnson|user.marcus-johnson]] — good lunch discussion about the task filtering API. He's going with cursor-based pagination and flexible query params. Will have a PR by end of week.
+- [[Mei Lin|user.mei-lin]] — reviewed her project templates PR. Clean code, good error handling. Left minor feedback on naming conventions. She's ramping well.
+- [[Jason Wright|user.jason-wright]] — post-mortem on Thursday's latency spike. Root cause: connection pool exhaustion. PgBouncer fix is deployed to staging, looks solid.
+- [[Nina Okonkwo|user.nina-okonkwo]] — she'll resolve webhook retry semantics with customers this week
+- [[Olivia Chen|user.olivia-chen]] — emailed her about evaluating openapi-toolkit; she offered a call to walk through our use case
 
 ## Tasks
 
-- [x] Finalize and deliver lab meeting presentation
-- [x] Share slides with lab
-- [x] Reply to James Taylor about review timeline
-- [ ] Filter candidates for tau-specific binders (started, need to finish)
-- [ ] Read Thornton lab cryo-EM paper in detail
-- [ ] Start K99 specific aims outline
+- [x] Run sprint planning meeting
+- [x] Finalize versioning proposal document
+- [x] Review Mei's project templates PR
+- [x] Post-mortem for production latency issue
+- [ ] Merge versioning proposal and share with wider engineering org
+- [ ] Schedule call with Olivia Chen about openapi-toolkit
 
 ## Day Summary
 
-Busy and productive Monday. Lab meeting went well — Sarah liked the expanded candidate pool and pushed for a tau-focused strategy given the Thornton lab's new structures. This makes sense scientifically and narrows the experimental workload for David. Started filtering but still need to finish the tau-specific subset. Also had a good lunch chat with Emma about her clock model struggles.
+Busy and productive Monday. Sprint planning went well — team is aligned on priorities. The Sprint 15 bet is clear: task filtering API (unblocks mobile) + webhook spec (customer demand) + API explorer scaffold (Priya's demo). Mei's first endpoint PR was solid. Jason's post-mortem was thorough and the PgBouncer fix looks good in staging.
 
 ## Notes
 
-- The tau pivot is a good call. The new cryo-EM structures give us much better template for computational design than what we had for amyloid-beta. The 12 tau-specific candidates from our pool should be the first experimental priority.
-- Emma's model plateau is concerning. Might be an architecture issue, not just hyperparameters. Offered to look at her code later this week.
+- Marcus's cursor pagination approach is the right call. Offset/limit breaks under concurrent writes — we learned this the hard way with v1. Cursor-based is more work upfront but saves pain later.
+- Mei is growing faster than I expected. Her error handling was better than some of Marcus's early PRs. Consider giving her more scope — Priya suggested webhook ownership.

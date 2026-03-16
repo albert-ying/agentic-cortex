@@ -8,9 +8,9 @@ created: 1710000000000
 
 ## Current Focus
 
-**Primary**: K99 grant application — specific aims page near final; need to strengthen preliminary data in Aim 1 and draft significance section
-**Secondary**: Protein binder design ([[proj.2026.protein-design]]) — 12 tau-specific candidates in experimental pipeline; awaiting first yeast display screening data from [[David Lee|user.david-lee]]
-**Tertiary**: Review article for *Computational Biology Reviews* — methods section drafted; experimental validation section in progress; deadline April 15
+**Primary**: API redesign v2 ([[proj.2026.api-redesign]]) — OpenAPI spec ~85% complete; core endpoints implemented; API explorer in active development; versioning RFC published and getting feedback
+**Secondary**: Mobile companion app ([[proj.2026.mobile-app]]) — unblocked now that task filtering API is merged; Carlos targeting internal beta end of April
+**Tertiary**: Staff engineer promotion path — need to demonstrate cross-team influence and written technical leadership; versioning RFC is step one
 
 ## Today's Activity
 
@@ -20,18 +20,18 @@ created: 1710000000000
 
 ## Today's Calendar (Mar 15)
 
-- 10:00 — Call with [[Tom Nguyen|user.tom-nguyen]] (career advice re: industry → academia)
-- 14:00 — Library writing block (K99 significance section)
-- 16:00 — Yoga class
+- 10:00 — Coffee with [[Diana Foster|user.diana-foster]] (she accepted the Dataflow lead role!)
+- 14:00 — Gym (climbing at ABP)
+- 16:00 — Light reading / planning for next week
 
 ## Upcoming Week (Mar 16–22)
 
-- **Mon Mar 16** 10:00 — Lab meeting (David presenting yeast display progress)
-- **Tue Mar 17** 15:00 — 1:1 with [[Sarah Kim|user.sarah-kim]]
-- **Wed Mar 18** 11:00 — Zoom with [[Rachel Brown|user.rachel-brown]] (IRB amendment discussion)
-- **Thu Mar 19** 13:00 — Department seminar (external speaker: systems biology of aging)
-- **Fri Mar 20** — NBRF letter of intent writing day (deadline: April 1)
-- **Sat Mar 21** — Open (catch up on review article)
+- **Mon Mar 16** 9:00 — Team standup; check Sprint 15 progress
+- **Tue Mar 17** 14:00 — Zoom with [[Olivia Chen|user.olivia-chen]] (openapi-toolkit CI integration follow-up)
+- **Wed Mar 18** 11:00 — 1:1 with [[Mei Lin|user.mei-lin]] (webhook spec review)
+- **Thu Mar 19** 10:00 — Engineering design review (API explorer UX walkthrough with Sam + Elena)
+- **Fri Mar 21** 10:30 — 1:1 with [[Priya Sharma|user.priya-sharma]]
+- **Sat Mar 22** — Open (prep all-hands demo)
 
 ## Source Sync Status
 
@@ -43,11 +43,12 @@ created: 1710000000000
 
 ## Live Tasks
 
-- [ ] Incorporate Sarah's K99 feedback — add binding energy distributions as preliminary data (Aim 1)
-- [ ] Draft K99 significance and innovation section
-- [ ] Start NBRF letter of intent (due April 1)
-- [ ] Share K99 draft with [[Michael Chen|user.michael-chen]] for detailed feedback
-- [ ] Follow up with [[Rachel Brown|user.rachel-brown]] on IRB amendment timeline
+- [ ] Follow up with DataSync Corp about API v2 beta program (discuss with Nina first)
+- [ ] Finalize all-hands demo script for March 28
+- [ ] Write up openapi-toolkit adoption decision as a brief ADR
+- [ ] Submit API World 2026 talk proposal (co-present with Olivia?)
+- [ ] Reply to [[Ben Tran|user.ben-tran]] about Go meetup talk invitation
+- [ ] Give Mei feedback on revised webhook spec (due Wednesday)
 
 ## People Interacted With Today
 
@@ -55,5 +56,6 @@ created: 1710000000000
 
 ## Stale Follow-ups
 
-- [[Alex Novak|user.alex-novak]] — awaiting Chronos Bio SAB details (sent interest Mar 13, no response yet)
-- [[Kevin Wu|user.kevin-wu]] — received cohort metadata (n=2,400); need to send formal data use agreement
+- [[Derek Huang|user.derek-huang]] — replied to his startup pitch email but haven't given a definitive answer on advising (sent "not now" Mar 12, no follow-up needed)
+- [[Laura Kim|user.laura-kim]] — declined Stripe role twice; relationship maintained for future
+- [[Raj Gupta|user.raj-gupta]] — may want to bring him back for API deployment architecture review; need to discuss budget with Priya

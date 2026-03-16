@@ -8,49 +8,52 @@ created: 1710000000000
 
 ## State & Open Questions
 
-- End of a strong week — wrap up loose ends and plan next week
-- Sarah's weekly 1:1 day; need to show her the K99 aims draft
-- Open question: when should I share the K99 draft with Michael for detailed feedback?
+- End of a strong week — wrap up and 1:1 with Priya
+- Need to share the API versioning RFC with the broader engineering org
+- Open question: who's the lighthouse beta customer for the API v2 preview?
 
 ## Timeline
 
 | Time | Activity | Duration | Key Detail |
 |------|----------|----------|------------|
-| 9:00 | VS Code — k99-draft | 1.5h | Final revisions on both aims; polished innovation section |
-| 10:30 | Zoom — 1:1 with Sarah | 30m | Showed K99 draft; she wants more preliminary data in Aim 1 |
-| 11:00 | Chrome — email | 30m | Kevin replied with cohort metadata; n=2,400, good coverage |
-| 11:30 | VS Code — review-article | 1.5h | Added 800 words on experimental validation approaches |
-| 13:00 | Lunch break | 45m | Quick lunch, then coffee with [[Lisa Wang\|user.lisa-wang]] who was visiting campus |
-| 13:45 | Slack — lab channel | 15m | Emma's model is training properly now; loss dropping again |
-| 14:00 | Terminal — data processing | 1.5h | Wrote script to parse Kevin's cohort metadata for K99 feasibility |
-| 15:30 | VS Code — protein-design | 1h | Updated project README with current status and candidate counts |
-| 16:30 | Chrome — conference registration | 30m | Registered for the Computational Aging Biology Symposium (June) |
-| 17:00 | Slack — wrap-up | 15m | Shared weekly summary with lab |
+| 9:00 | VS Code — api-versioning-rfc | 1h | Final polish on RFC; added diagrams for version routing |
+| 10:00 | Slack — #engineering | 30m | Posted RFC to #engineering channel for org-wide feedback |
+| 10:30 | Zoom — 1:1 with Priya | 30m | Great conversation; see [[meet.2026.03.14]] |
+| 11:00 | Chrome — email | 30m | Replied to Olivia about openapi-toolkit CI integration |
+| 11:30 | GitHub — code review | 1.5h | Final review and merge of Marcus's task filtering API PR |
+| 13:00 | Lunch break | 45m | Quick lunch, then coffee in the break room |
+| 13:45 | VS Code — api-explorer | 1h | Reviewed Elena's API explorer scaffold PR — great progress |
+| 14:45 | Slack — team | 30m | Shared weekly summary; reminded about Priya's demo request for Mar 28 |
+| 15:15 | VS Code — all-hands-demo | 1h | Built demo script: versioning → explorer → live request → rate limiting |
+| 16:15 | Zoom — quick sync with Nina | 15m | Discussed lighthouse customer candidates for beta |
+| 16:30 | Chrome — conference | 30m | Looked at API World 2026 CFP — Olivia mentioned a speaking slot |
 
 <!-- moment: screenshot would be embedded here -->
 
 ## People
 
-- [[Sarah Kim|user.sarah-kim]] — 1:1; she thinks K99 draft is "80% there" but wants more preliminary data to strengthen Aim 1. Suggested including the binding energy distributions as evidence of computational feasibility.
-- [[Kevin Wu|user.kevin-wu]] — his cohort metadata arrived: n=2,400 participants, ages 45-85, with methylation + proteomics. Perfect for Aim 2 feasibility.
-- [[Lisa Wang|user.lisa-wang]] — quick coffee; she mentioned Helix Therapeutics is interested in aging aggregate binders. Might be a future industry connection for the project.
-- [[Emma Zhang|user.emma-zhang]] — her clock model is training properly now after fixing the data leakage; loss is dropping steadily
+- [[Priya Sharma|user.priya-sharma]] — 1:1 went well. She's supportive of the Staff promotion path and wants me to write the versioning RFC as a public artifact. Also discussed the production incident framing for the board.
+- [[Marcus Johnson|user.marcus-johnson]] — merged his task filtering API PR. Clean implementation with cursor pagination. Carlos is now unblocked for mobile.
+- [[Elena Kowalski|user.elena-kowalski]] — API explorer scaffold is coming together. Radix UI primitives, syntax highlighting, and the "try it" panel skeleton are all in place.
+- [[Nina Okonkwo|user.nina-okonkwo]] — quick sync on beta customers. She has three candidates: DataSync Corp (large), BuildOps (mid-size), and TaskFlow (startup). I like DataSync as the lighthouse.
 
 ## Tasks
 
-- [x] Polish K99 aims and show Sarah
-- [x] Process Kevin's cohort metadata
-- [x] Add to review article (800 words)
-- [x] Register for Computational Aging Biology Symposium
-- [ ] Incorporate Sarah's feedback on K99 preliminary data section
-- [ ] Share K99 draft with Michael for detailed review (next week)
-- [ ] Start NBRF letter of intent
+- [x] Polish and publish API versioning RFC
+- [x] 1:1 with Priya
+- [x] Merge Marcus's task filtering API PR
+- [x] Review Elena's API explorer scaffold
+- [x] Build demo script for all-hands
+- [x] Sync with Nina on beta customer candidates
+- [ ] Follow up with DataSync Corp contact about beta program
+- [ ] Submit API World 2026 talk proposal (consider co-presenting with Olivia)
 
 ## Day Summary
 
-Strong end to a productive week. Sarah reviewed the K99 and it's close — main gap is more preliminary data in Aim 1, which I can fill with the binding energy distributions and David's early yeast display results once they come in. Kevin's cohort data is exactly what we need for Aim 2 feasibility. Also had a nice surprise coffee with Lisa, who hinted that Helix Therapeutics might be interested in our binder work down the road.
+Strong end to a productive week. Published the versioning RFC to the wider org — already getting good feedback. Marcus's task filtering API merged, which unblocks Carlos on mobile. 1:1 with Priya was the highlight — she's proactively supporting my Staff promotion path, which is motivating. The demo for the all-hands is taking shape.
 
 ## Notes
 
-- This week's arc: tau pivot (Mon) → K99 framing (Tue-Wed) → draft aims (Thu) → Sarah feedback (Fri). Good momentum. Next week: polish K99, start NBRF LOI, wait for David's first screening data.
-- Lisa's Helix connection is worth filing away. Industry partnerships look good on K99 applications and could be a real collaboration later. Don't pursue now — too early — but keep the door open.
+- This week's arc: versioning decision (Sat) → sprint planning (Mon) → RFC + spec work (Tue-Wed) → rate limiting + tooling adoption (Thu) → RFC published + task filtering merged (Fri). Best week on the project so far.
+- Staff promotion: Priya's framing is clear — technical leadership beyond my squad + written artifacts (RFCs) + mentoring. The RFC is step one. Getting Growth to adopt v2 would be the big proof point.
+- DataSync Corp as lighthouse customer makes sense — they're well-known and their integration team has been vocal about v1 pain points. Nina will reach out.

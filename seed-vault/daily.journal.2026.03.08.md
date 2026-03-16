@@ -8,39 +8,39 @@ created: 1710000000000
 
 ## State & Open Questions
 
-- Primary focus: getting the tau binder docking runs finished before Monday lab meeting
-- Need to decide whether to include the alpha-synuclein controls in the presentation
-- Open question: is the Rosetta energy threshold too aggressive? 47 candidates might be too narrow
+- Saturday — catching up on technical reading and prep for Monday sprint planning
+- Need to finalize the API versioning proposal before the sprint planning meeting
+- Open question: should we adopt openapi-toolkit or stick with our custom spec validation?
 
 ## Timeline
 
 | Time | Activity | Duration | Key Detail |
 |------|----------|----------|------------|
-| 9:30 | VS Code — protein-design | 3h | Reran Rosetta docking with relaxed energy cutoff |
-| 12:30 | Chrome — literature search | 45m | Read two papers on tau fibril polymorphs |
-| 13:15 | Lunch break | 45m | Ate at the Quad cafe |
-| 14:00 | Terminal — cluster jobs | 1h | Submitted batch scoring on Westfield HPC |
-| 15:00 | Slack — lab channel | 30m | Discussed screening timeline with [[David Lee\|user.david-lee]] |
-| 15:30 | VS Code — protein-design | 2h | Wrote analysis script for binding energy distributions |
-| 17:30 | Papers — reading | 1h | Reviewed Anna's recent preprint on aggregate binders |
+| 10:00 | Chrome — reading | 1.5h | Read Stripe's API versioning blog post and GitHub's API evolution strategy |
+| 11:30 | Slack — Ben Tran | 30m | DM thread about API versioning — he recommended URL-path over header-based |
+| 12:00 | Lunch break | 1h | Breakfast tacos at Veracruz on South Congress |
+| 13:00 | VS Code — api-versioning-doc | 2h | Drafted the versioning strategy proposal document |
+| 15:00 | Terminal — testing | 1h | Prototyped URL-path routing in a branch to validate the approach |
+| 16:00 | Chrome — openapi-toolkit | 45m | Evaluated Olivia Chen's library; looks solid, good Go integration |
+| 16:45 | GitHub — PRs | 30m | Reviewed Marcus's service mesh refactor PR |
 
 ## People
 
-- [[David Lee|user.david-lee]] — confirmed yeast display plates arrive Tuesday; discussed whether to add tau-P301S mutant
-- [[Anna Mueller|user.anna-mueller]] — read her new preprint on aggregate-selective nanobodies; worth citing in our manuscript
+- [[Ben Tran|user.ben-tran]] — great DM thread about versioning strategies; he shared how Vercel handles it internally and recommended URL-path. Also connected me to [[Olivia Chen|user.olivia-chen]]'s openapi-toolkit.
 
 ## Tasks
 
-- [x] Rerun docking with -1.5 REU cutoff instead of -2.0
-- [x] Submit batch jobs to HPC cluster
-- [ ] Compile binding energy distributions for Monday presentation
-- [ ] Email [[Kevin Wu|user.kevin-wu]] about accessing clock validation cohort data
+- [x] Read Stripe and GitHub API versioning approaches
+- [x] Draft versioning strategy proposal
+- [x] Prototype URL-path routing
+- [x] Review Marcus's PR
+- [ ] Evaluate openapi-toolkit more thoroughly (started, need to test with our schema)
 
 ## Day Summary
 
-Spent most of the day on computational work for [[proj.2026.protein-design]]. Relaxing the energy cutoff brought the candidate pool from 47 to 83 designs, which gives David more to work with experimentally. Also caught up on literature — Anna Mueller's preprint from Heidelberg has some relevant methodology we should reference.
+Productive Saturday. Got the versioning strategy proposal drafted — I'm now firmly in the URL-path versioning camp after reading how Stripe and GitHub handle it and getting Ben's perspective from Vercel. Also discovered Olivia Chen's openapi-toolkit which could save us serious work on spec validation.
 
 ## Notes
 
-- The relaxed cutoff feels right. 47 was probably leaving good candidates on the table. Sarah will want justification for the threshold change though — need to prepare a comparison plot.
-- Saturday work session, but productive. The quiet lab is good for deep computational focus.
+- URL-path versioning wins on simplicity: `/v2/projects` is self-documenting, cacheable at CDN, and doesn't require header inspection. The "but URLs should identify resources not versions" argument is theoretically correct and practically irrelevant.
+- openapi-toolkit looks promising. Need to test it with our actual schema before committing.
