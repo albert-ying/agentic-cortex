@@ -1,4 +1,4 @@
-# I Let OpenClaw Run My Life for a Week. Nobody Noticed.
+# I Let Agentic Cortex Run My Life for a Week. Nobody Noticed.
 
 *Kejun Albert Ying | March 2026*
 

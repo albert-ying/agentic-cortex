@@ -1,8 +1,8 @@
-# OpenClaw 🦞 Agentic Cortex
+# Agentic Cortex
 
-> A personal AI operating system that shares your memory, your voice, and your taste — built on structured markdown, MCP integrations, and a natural-language feedback loop.
+> 🦞 Built for [OpenClaw](https://github.com/nicobailon/openclaw) / [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — a personal AI operating system that shares your memory, your voice, and your taste.
 
-**[Quick Start](#quick-start)** · **[Architecture](#architecture)** · **[Documentation](#chapters)** · **[FAQ](#faq)**
+**[Quick Start](#-quick-start)** · **[Installation](#-installation)** · **[Architecture](#architecture)** · **[Chapters](#chapters)** · **[FAQ](#faq)**
 
 ---
 
@@ -116,14 +116,9 @@ This is borrowed from [Dendron](https://www.dendron.so/)'s hierarchical note sys
 
 ---
 
-## Prerequisites
+## 🚀 Quick Start
 
-- **Required:** Git, Python 3.9+, Node.js 18+
-- **Agent:** [OpenClaw](https://github.com/nicobailon/openclaw) or [Claude Code](https://docs.anthropic.com/en/docs/claude-code) (tested). Any agent that reads `CLAUDE.md` and supports MCP should work ([Cursor](https://cursor.sh), [Windsurf](https://codeium.com/windsurf), [Gemini CLI](https://github.com/google-gemini/gemini-cli)).
-- **Notes:** Any hierarchical markdown system — [Dendron](https://www.dendron.so/), [Obsidian](https://obsidian.md), [Logseq](https://logseq.com), or flat folders with naming conventions.
-- **Optional:** [Screenpipe](https://screenpi.pe/) (Chapter 5), Gmail MCP server (Chapter 5), Google Calendar MCP server (Chapter 5).
-
-## Quick Start
+The fastest path: clone the repo, run setup, and start an agent session. The agent will read the CLAUDE.md and figure out the rest.
 
 ```bash
 git clone https://github.com/Albert-Ying/agentic-cortex.git
@@ -131,14 +126,124 @@ cd agentic-cortex
 ./setup.sh
 ```
 
-`setup.sh` will:
-1. Ask for your vault location (default: `~/agentic-cortex-vault`)
-2. Copy the seed vault with example notes
-3. Set up your identity (name, email)
-4. Install project-scoped skills and memory structure
-5. Print instructions to start your first session
+`setup.sh` creates your vault, copies the seed data, installs skills, and sets up persistent memory. Then open your vault in your editor, start an OpenClaw/Claude Code session, and the system briefs you automatically.
 
-Then open your vault directory in your editor and start an agent session. The system will brief you automatically.
+---
+
+## 📦 Installation
+
+### 1. Agent (required)
+
+Install one of the following AI coding agents:
+
+**OpenClaw** (recommended, open-source):
+```bash
+npm install -g openclaw
+```
+
+**Claude Code** (Anthropic's CLI):
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+Other agents that read `CLAUDE.md` and support MCP should also work (Cursor, Windsurf, Gemini CLI) but are not tested.
+
+### 2. Dendron (recommended)
+
+Dendron provides the hierarchical note structure that the naming convention depends on. Install as a VS Code extension:
+
+1. Open VS Code
+2. Extensions → Search "Dendron" → Install **Dendron** by dendron.so
+3. `Cmd+Shift+P` → "Dendron: Initialize Workspace" → point it at your vault directory
+
+You can also use Obsidian, Logseq, or plain folders -- the naming convention works without Dendron, but you lose the tree view and refactoring tools.
+
+### 3. Screenpipe (optional, for ambient intelligence)
+
+[Screenpipe](https://screenpi.pe/) records your screen and audio locally. Required for Chapters 5 and 9 (daily journals, activity tracking).
+
+**macOS:**
+```bash
+brew install screenpipe
+```
+
+**Linux:**
+```bash
+curl -fsSL https://screenpi.pe/install.sh | sh
+```
+
+After installing, start the daemon:
+```bash
+screenpipe --start
+```
+
+Verify it's running: `curl http://localhost:3030/health`
+
+### 4. MCP Servers (optional, for email/calendar)
+
+MCP (Model Context Protocol) servers give the agent access to external services. Required for Chapter 5.
+
+**Gmail MCP:**
+Configure in your agent's MCP settings (`~/.claude/settings.json` or equivalent):
+```json
+{
+  "mcpServers": {
+    "gmail": {
+      "type": "url",
+      "url": "https://mcp.anthropic.com/gmail"
+    }
+  }
+}
+```
+You'll be prompted to authorize Gmail access on first use.
+
+**Google Calendar MCP:**
+```json
+{
+  "mcpServers": {
+    "google-calendar": {
+      "type": "url",
+      "url": "https://mcp.anthropic.com/google-calendar"
+    }
+  }
+}
+```
+
+### 5. Python (required)
+
+Python 3.9+ is needed for helper scripts (vault indexer, screenpipe preprocessor).
+
+```bash
+python3 --version  # verify >= 3.9
+```
+
+No pip dependencies -- all scripts use stdlib only.
+
+### 6. Run Setup
+
+```bash
+cd agentic-cortex
+./setup.sh
+```
+
+The script will:
+1. Ask for your vault location (default: `~/agentic-cortex-vault`)
+2. Copy seed vault with example notes
+3. Ask for your name and email
+4. Install skills to your vault's `.claude/skills/`
+5. Set up persistent memory directory
+6. Create initial git commit
+
+### 7. Start Your First Session
+
+```bash
+cd ~/agentic-cortex-vault   # or wherever you placed your vault
+openclaw                     # or: claude
+```
+
+The agent reads `CLAUDE.md`, loads your skills and memory, and should brief you automatically. Try asking: "What do you know about me?"
+
+> **Tip:** You can also just give the agent this repo and say "set this up for me." It can read the README and CLAUDE.md and handle the installation itself.
 
 ---
 
