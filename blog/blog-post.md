@@ -4,116 +4,113 @@
 
 ---
 
-Last week my AI drafted 12 emails in my voice, briefed me every morning with my calendar and stale follow-ups, caught a promise I forgot I made three weeks ago, and prepared meeting context before I asked for it. Nobody on the receiving end knew. A collaborator replied to one of the AI-drafted emails within 4 minutes — normal cadence, normal tone, no "wait, did a robot write this?" Nobody flagged anything. Not my advisor, not my collaborators, not the conference organizer I nearly ghosted.
+## The Premise
 
-The entire system is markdown files.
+What happens when an AI agent has access to everything you know — your projects, your people, your calendar, your communication patterns — and learns from every correction you give it?
 
-No fine-tuning. No vector database. No embeddings. No retrieval-augmented generation pipeline. Hierarchical plaintext files in a directory, read by an AI agent at session start. That's it. I'm open-sourcing the whole thing.
+Not a chatbot with memory bolted on. Not RAG over your documents. A persistent agent that reads the same structured knowledge you maintain, writes in your voice, and accumulates behavioral refinements across sessions the way a model accumulates gradient updates during training.
 
----
+I built this system over the past month with [OpenClaw](https://github.com/Albert-Ying/agentic-cortex), an open-source CLI agent framework. Last week, it drafted 12 emails, ran morning briefings surfacing stale follow-ups and project momentum, caught a promise I'd forgotten three weeks prior, and prepared meeting context before I asked. Nobody on the receiving end flagged anything. The emails sounded like me because, in a meaningful sense, the agent *had become* me — same memory, same taste, same voice.
 
-## The Problem Nobody Talks About
-
-Every AI tool forgets you exist between sessions.
-
-ChatGPT, Copilot, Claude — doesn't matter. You open a new conversation, and the first five minutes are wasted re-explaining who you are, what you're working on, who the people in your life are, what happened last time. You paste in context. You re-describe your preferences. You say "remember, I told you last week..." and it doesn't, because it can't.
-
-This is insane. We've built models that can reason about protein folding and prove mathematical theorems, and they can't remember that I prefer single line breaks in emails.
-
-The real bottleneck isn't intelligence. LLMs are smart enough. The bottleneck is **memory** — persistent, structured, auditable memory that survives between sessions and accumulates over time. The model weights don't need to change. The context does.
-
-So I built a system where the context is always there, always current, and always mine.
+This post explains the architecture and the three technical ideas that make it work: a feedback loop that functions like RLHF without training, voice profile extraction from communication history, and ambient context capture via Screenpipe.
 
 ---
 
-## The Architecture: Five Layers of Plaintext
+## Architecture in Brief
 
-The system has five layers, and every single one is a markdown file you can open in any text editor.
+The system is five layers of plaintext markdown, version-controlled in git. No vector database. No embeddings. No fine-tuning.
 
-**Layer 1 — Senses.** MCP servers connect the AI to Gmail, Google Calendar, and Screenpipe (a local screen + audio recorder). These are the raw data pipes. The AI can read my inbox, check my calendar, and review what I was working on last night — all through standardized tool calls, all with my permission on each action.
+1. **Senses** — MCP servers connecting to Gmail, Google Calendar, and Screenpipe (local screen + audio recording). These are read-only data pipes with human approval gates on every action.
+2. **Sync Engine** — Source adapters that normalize raw data into structured diffs: new calendar events, email threads with replies, collaborator mentions in transcripts. These flow into the vault.
+3. **Vault** — The long-term memory. Hierarchical markdown with naming conventions the agent navigates natively. `user.sarah-kim.md` is a person. `proj.2026.protein-design.md` is a project. `meet.2026.03.14.md` is a meeting. The agent finds things by structure, not by similarity search.
+4. **Command Center** — Working memory (`_working-memory.md`) tracks what's hot right now: today's calendar, active tasks, stale follow-ups. A context model tracks medium-term state: project momentum, collaborator threads, open decisions. Three tiers — hot, warm, cold — all plaintext.
+5. **Behavior Layer** — A `CLAUDE.md` file defines the agent's operating rules. Skills provide reusable capabilities. Auto-memory files accumulate learned preferences across sessions. A feedback loop converts corrections into permanent behavioral changes.
 
-**Layer 2 — Sync Engine.** Source adapters query the MCP servers and normalize the data into structured diffs: three new calendar events, one email thread with a reply, a mention of a collaborator's name in a Screenpipe transcript. These diffs flow into the vault.
-
-**Layer 3 — The Vault.** This is the long-term memory. Hierarchical markdown files with naming conventions the AI navigates natively. `user.sarah-kim.md` is a person. `proj.2026.protein-design.md` is a project. `meet.2026.03.14.md` is a meeting. No embeddings needed — the AI finds things by knowing where to look, the same way you would.
-
-**Layer 4 — Command Center.** A working memory file (`_working-memory.md`) tracks what's hot right now — today's calendar, live tasks, stale follow-ups. A context model tracks medium-term state — project momentum, collaborator threads, open decisions. Three tiers of memory: hot, warm, cold. All plaintext.
-
-**Layer 5 — Behavior.** A `CLAUDE.md` file defines who the AI is and how it operates. Skills give it reusable capabilities (email drafting, meeting prep, daily briefing). Auto-memory accumulates learned preferences across sessions. A feedback loop turns corrections into permanent behavioral changes.
-
-The whole thing is git-diffable. I can see exactly what changed between Tuesday and Wednesday in my AI's understanding of the world.
+Everything is `git diff`-able. You can inspect exactly what changed in the agent's world model between Tuesday and Wednesday. The full architecture is in the [repo](https://github.com/Albert-Ying/agentic-cortex).
 
 ---
 
-## Three Things That Actually Happened
+## The Feedback Loop: RLHF Without Training
 
-These aren't hypotheticals. These happened last week.
+This is the most interesting part of the system, and it emerged almost by accident.
 
-### The Morning Briefing
+In standard RLHF, you improve a model's behavior through labeled preference data, reward modeling, and policy optimization. It requires GPU clusters, curated datasets, and training infrastructure. The conceptual goal is simple — human feedback should produce lasting behavioral change — but the engineering is heavy.
 
-I open my terminal, start a session, and without typing anything beyond "hey" I get:
+The feedback loop in this system achieves the same conceptual goal through a different mechanism. When I correct the agent — "don't double-space after paragraphs in emails" — the correction gets persisted as a structured memory entry containing three things:
 
-> **FOCUS**: Protein binder design — 12 candidates in yeast display pipeline, screening this week. K99 specific aims need Aim 1 preliminary data.
->
-> **TODAY**: 10:00 call with Tom (career advice), 14:00 writing block (K99 significance), 16:00 yoga.
->
-> **STALE**: Alex Novak — Chronos Bio SAB interest, sent Mar 13, no reply. Consider gentle follow-up. Kevin Wu — cohort metadata received, data use agreement not yet sent.
->
-> **MOMENTUM**: Protein design HIGH. K99 MEDIUM. Review article LOW but on track (deadline Apr 15).
+1. **The rule**: single line breaks in all email drafts.
+2. **The rationale**: double spacing signals AI-generated text to recipients who know my style.
+3. **The scope**: all email drafts, all communication registers.
 
-The AI assembled this from my calendar, my inbox, my vault notes, and the context model from yesterday's session. I didn't ask for any of it. It just runs. The stale follow-ups alone save me from dropping relationships I care about.
+Next session, the agent reads this file alongside all other accumulated feedback. The behavior changes permanently. No training run. No weight update. The correction propagates through context, not through gradients.
 
-### The Email Draft
+The analogy maps cleanly:
 
-A collaborator emails about clock validation data. I say "draft a reply to Kevin." The AI finds the email thread via the Gmail MCP server. It checks Kevin's vault profile — computational epidemiologist, joint project on methylation clocks, last contact March 10, open thread about a data use agreement. It reads our last meeting notes. It drafts:
+| RLHF | Feedback Loop |
+|------|--------------|
+| Base model weights | `CLAUDE.md` (base policy) |
+| Human preference labels | Natural language corrections |
+| Reward model | Rationale field in feedback entries |
+| Policy gradient update | Feedback file written to disk |
+| Updated model | Agent reading updated context next session |
 
-> Hi Kevin — thanks for the metadata file. I'll run validation against our 2,400-sample cohort this week. Before I start: can you confirm the column names match the schema in your last email? Specifically looking for `cg_id`, `beta_value`, and `sample_age`. Also — I still owe you the signed DUA. Sending by Friday.
+The key difference is generalization. Standard RLHF requires many examples to shift a model's distribution. Here, a single correction with a well-articulated rationale generalizes immediately, because the agent can reason about the principle. One correction about git repositories and large binary files ("never `git init` at `~/` — a prior `.git` there ballooned to 52GB from tracking binary-heavy subdirectories") later caused the agent to independently warn about initializing a repo in a directory full of `.h5` files. No rule mentioned `.h5` files. The agent had extracted the principle — large binary files and git don't mix — and applied it to a novel situation.
 
-One-line review. One "y" to approve the Gmail draft. Done. The tone is mine — direct, specific, leading with what matters. No "I hope this email finds you well." Not ever.
+After roughly 15 sessions and 18 accumulated feedback entries, the agent's email drafts became indistinguishable from my own. It learned formatting preferences, communication register calibration per relationship tier, domain-specific vocabulary choices, and stylistic constraints I hadn't explicitly articulated — it inferred them from the pattern of corrections.
 
-### The Forgotten Promise
-
-Three weeks ago, at a conference, I told a contact I'd send her my preprint on causal aging clocks. Then I flew home, got buried in protein design experiments, and forgot. Completely.
-
-The AI didn't forget. In my morning briefing: **Overdue Follow-Up: Send preprint to Anna Mueller (21 days).** It pulled this from a meeting note I made at the conference — `meet.2026.02.23.md` — where I'd written "promised Anna the causal clock preprint." The staleness sweep caught it, flagged it, surfaced it. I would have lost that relationship over something that took two minutes to fix.
+This is what makes plaintext feedback more powerful than it sounds: the corrections compound. Each one narrows the agent's behavioral space, and because the agent reads *all* of them at session start, the combined effect is multiplicative, not additive.
 
 ---
 
-## The Feedback Loop — The Part That Surprised Me
+## Voice Profile Extraction
 
-I accidentally built RLHF for my personal AI.
+An agent that remembers your schedule and projects is useful. An agent that writes like you is transformative.
 
-Here's what I mean. In machine learning, you improve a model by giving it reward signals — labeled data, human preferences, loss gradients. You need GPUs, datasets, training pipelines. It's a whole infrastructure.
+The voice profile is a structured document extracted from real communication data — sent emails, chat messages, meeting notes. The extraction process analyzes thousands of messages across communication channels, identifying patterns in:
 
-In this system, **natural language corrections are the reward signal.** When I tell the AI "don't double-space after paragraphs in emails," it saves the correction with three things: the rule, **why** the rule exists (recipients could tell the email was AI-drafted from the spacing), and **how to apply** it (all email drafts, all registers). Next session, it reads that file and the behavior changes permanently. No training run. No fine-tuning. No GPU.
+- **Register calibration**: How formality, warmth, and technical depth shift based on the recipient. An email to an advisor reads differently from a message to a close collaborator, which reads differently from a note to a conference organizer.
+- **Structural habits**: Sentence length distributions, paragraph patterns, greeting and sign-off conventions, the specific ways you transition between topics.
+- **Vocabulary fingerprint**: Domain terms you use versus avoid, filler phrases that signal your voice, characteristic constructions.
+- **Cross-language patterns**: For multilingual users, how you code-switch, which terms stay in which language, how tone shifts across languages.
 
-The mapping is direct:
+The resulting document is a detailed specification of how you communicate, organized by register and channel. The agent reads it at session start and applies it to every draft. The effect is immediate — the first draft is close, and the feedback loop handles the remaining delta.
 
-- `CLAUDE.md` = base policy
-- Skills = sub-policies
-- My corrections = reward signal
-- Feedback memory files = gradient updates
-- AI behavior next session = updated weights
-
-Over 10 sessions, I accumulated about 18 feedback memories. By session 15, the AI's drafts were indistinguishable from my own writing. It knew my pet peeves, my formatting preferences, my communication register for each relationship tier. Not because anyone fine-tuned a model — because markdown files accumulated in a directory, and the AI read them every time.
-
-The part that surprised me: the AI doesn't just memorize rules. It captures the **principle** behind each correction. I told it "never `git init` at `~/`" and explained that a prior `.git` there ballooned to 52GB from tracking binary-heavy subdirectories. Later, when I asked it to initialize a repo in a directory full of `.h5` files, it hesitated and warned me — even though no rule mentioned `.h5` files. It had generalized from the principle. That's judgment, not just compliance.
+This matters because the failure mode of most AI-drafted communication isn't factual error. It's uncanny valley. The email is *almost* right but uses a greeting you'd never use, or structures the ask in a way that's subtly off. Recipients don't consciously notice, but the interaction feels different. A precise voice profile eliminates that gap.
 
 ---
 
-## Safety, in 30 Seconds
+## Screenpipe: Ambient Context Without Manual Logging
 
-Everything is local. The AI drafts emails; it never sends them. Chat messages go to my clipboard; I paste. Every behavioral rule is a line in a markdown file — delete the line, the behavior stops. I can `grep` my entire AI's knowledge base in three seconds. The attack surface is: what the AI can read on my disk, and what I approve it to do. Both are auditable. Try saying that about any other system.
+The weakest link in any personal knowledge system is input. People don't log consistently. They forget to take meeting notes. They don't record what they were working on at 2 AM when an idea struck.
+
+[Screenpipe](https://github.com/mediar-ai/screenpipe) solves this by recording screen content and audio continuously on the local machine. The system's sync engine queries Screenpipe's local API, extracts structured events — applications used, documents opened, conversations transcribed — and flows them into the vault.
+
+The practical effect: the agent knows what you were working on yesterday even if you didn't tell it. It can reconstruct context from screen recordings, identify when you were deep in a particular codebase, notice that you spent three hours on a paper draft, or flag that a collaborator's name appeared in a video call transcript. This becomes the raw material for daily journal generation — automated activity logs with key moments preserved as screenshots and clips.
+
+The privacy model is strict. Screenpipe runs entirely locally. Recordings never leave the machine. The agent accesses them through a local API with the same permission gates as every other action. You can delete any recording at any time, and the vault entries derived from it remain as standalone notes — the dependency is one-directional.
 
 ---
 
-## Build Your Own
+## The Shared Memory Model
 
-The [repo](https://github.com/Albert-Ying/agentic-cortex) has everything: a seed vault with example notes, skills, a setup script. Clone it, run `setup.sh`, and you have a working system in 30 minutes. Chapters 1-3 give you persistent memory and a structured vault. Chapter 4 adds the command center briefing. Chapters 5-9 are incremental — add email, calendar, screenpipe, voice profiles, and the feedback loop over days or weeks.
+The deeper insight beneath all of this is about what happens when an AI agent shares your memory — not a summary of your memory, not a retrieval over your memory, but your actual structured knowledge, maintained in the same format you'd maintain it yourself.
 
-The system works with Claude Code, OpenClaw, Cursor, Windsurf, or any agent that reads `CLAUDE.md` and supports MCP. The notes are just markdown. The memory is just files. The AI is whatever model you want — what matters is the persistent context layer around it.
+The agent has the same memory as you. In many cases, more precise memory. It knows when you last contacted each collaborator, what was discussed, what was promised. It tracks 400+ people profiles, each with interaction history, relationship context, and open threads. It maintains project state across months. It catches things you've forgotten because it reads the complete context every session while you, being human, rely on incomplete recall.
 
-I've been running this for weeks now. Every session starts where the last one ended. Every correction sticks. Every person, project, and follow-up lives in a file I own. The AI doesn't forget, doesn't drift, and doesn't need re-explaining. It just picks up where we left off and tells me what I need to know.
+This changes the interaction model fundamentally. You stop managing the AI and start working *with* it. The morning briefing isn't a feature you configured — it's what naturally happens when an agent has full situational awareness and a directive to surface what matters. The stale follow-up detection isn't a reminder system — it's a consequence of the agent knowing your relationship graph and noticing gaps.
 
-Nobody's noticed yet. But I notice — every morning, when I sit down and the AI already knows what matters.
+---
+
+## Safety
+
+Everything runs locally. The agent drafts emails but never sends them. Chat messages go to the clipboard for manual pasting. Every behavioral rule is a line in a markdown file — delete the line, the behavior stops. The full knowledge base is greppable in seconds. The attack surface is what the agent can read on disk and what you approve it to do. Both are auditable, both are transparent. The [repo](https://github.com/Albert-Ying/agentic-cortex) documents the threat model in detail.
+
+---
+
+## Try It
+
+The [repo](https://github.com/Albert-Ying/agentic-cortex) includes a seed vault, skills, and a setup script. Clone it, run `setup.sh`, and you have a working system in 30 minutes. The tutorial walks through nine chapters — from basic persistent memory to the full command center with email, calendar, screenpipe, voice profiles, and the feedback loop.
+
+The system works with Claude Code, OpenClaw, Cursor, Windsurf, or any agent framework that reads `CLAUDE.md` and supports MCP. The notes are markdown. The memory is files. The intelligence is whatever model you choose. What matters is the persistent context layer around it.
 
 [**GitHub: agentic-cortex**](https://github.com/Albert-Ying/agentic-cortex)
