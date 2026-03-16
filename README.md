@@ -85,6 +85,29 @@ graph TD
 
 **Data flow:** External sources feed source adapters that produce structured manifests (diffs of what changed). The vault updater writes changes into markdown files. The command center distills the vault into working memory (what matters now) and a context model (medium-term state). The behavior layer — CLAUDE.md, skills, and accumulated feedback memories — shapes how the AI acts. Every output is human-gated.
 
+### The Naming Convention Is the Schema
+
+The foundation of the entire system is a single design decision: **dot-separated filenames that encode type, time, and relationships**.
+
+```
+user.priya-sharma.md                → type=person,  name=priya-sharma
+proj.2026.api-redesign.md           → type=project, year=2026, name=api-redesign
+meet.2026.03.14.md                  → type=meeting, date=2026-03-14
+daily.journal.2026.03.14.md         → type=journal, date=2026-03-14
+sci.engineering.distributed-systems.md → type=science, domain=engineering, topic=distributed-systems
+```
+
+The filename IS the schema. No database, no config file, no ORM. An AI agent navigates the entire knowledge graph through glob patterns alone:
+
+- `user.*.md` → all people
+- `proj.2026.*.md` → this year's projects
+- `meet.*.md` + grep for `user.priya-sharma` → all meetings with Priya
+- `sci.engineering.*.md` → all engineering notes
+
+Cross-links inside notes (`[[Priya Sharma|user.priya-sharma]]`) create the graph edges. The hierarchy gives you type safety. The wikilinks give you relationships. Together, they form a knowledge graph that's human-readable, git-trackable, and AI-navigable — with zero infrastructure.
+
+This is borrowed from [Dendron](https://www.dendron.so/)'s hierarchical note system, but the pattern works with any file-based notes. The key insight: **when your naming convention is consistent, your filesystem becomes a queryable graph**.
+
 ---
 
 ## Prerequisites
